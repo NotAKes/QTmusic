@@ -20,6 +20,12 @@ class QTmusic(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         for i in self.playnotes.buttons():
             i.clicked.connect(self.btnPress)
+        self.playmelody.clicked.connect(self.melody)
+
+    def melody(self):
+        for i in self.sender().text():
+            self.play_sound(i)
+            self._player.play()
 
     def btnPress(self):
         self.play_sound(self.sender().text())
@@ -42,6 +48,7 @@ class QTmusic(QMainWindow, Ui_MainWindow):
 
     def play_sound(self, button):
         filename = dict_filename[button]
+        # print(filename)
         self._audio_output = QtMultimedia.QAudioOutput(self)
         self._audio_output.setVolume(50)
         self._player = QtMultimedia.QMediaPlayer(self)

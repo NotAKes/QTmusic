@@ -104,7 +104,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>qwerty</string>
+     <string>qwert</string>
     </property>
    </widget>
    <widget class="QLabel" name="label">

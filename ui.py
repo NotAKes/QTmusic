@@ -57,5 +57,5 @@ class Ui_MainWindow(object):
         self.playnote3.setText(_translate("MainWindow", "e"))
         self.playnote4.setText(_translate("MainWindow", "r"))
         self.playnote5.setText(_translate("MainWindow", "t"))
-        self.playmelody.setText(_translate("MainWindow", "PushButton"))
+        self.playmelody.setText(_translate("MainWindow", "qwert"))
         self.label.setText(_translate("MainWindow", "Пример мелодии"))
