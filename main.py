@@ -2,15 +2,15 @@ import sys
 
 from PyQt6 import QtCore, QtMultimedia
 from ui import Ui_MainWindow
-from PyQt6.QtCore import Qt, QRectF, QPointF
+from PyQt6.QtCore import Qt, QRectF, QPointF, QFile
 from PyQt6.QtWidgets import QWidget, QApplication, QPushButton, QMainWindow, QLabel, QSlider
 
 dict_filename = {
-    'q': 'media/flute.mp3',
-    'w': '',
-    'e': '',
-    'r': '',
-    't': '',
+    'q': 'flute.mp3',
+    'w': 'guitar.mp3',
+    'e': 'bass.mp3',
+    'r': 'clarinet.mp3',
+    't': 'trombone.mp3',
 }
 
 
@@ -23,28 +23,30 @@ class QTmusic(QMainWindow, Ui_MainWindow):
 
     def btnPress(self):
         self.play_sound(self.sender().text())
+        self._player.play()
 
     def keyPressEvent(self, event):
+        self.button = ''
         if event.key() == Qt.Key.Key_Q:
             self.button = 'q'
-        if event.key() == Qt.Key.Key_W:
+        elif event.key() == Qt.Key.Key_W:
             self.button = 'w'
-        if event.key() == Qt.Key.Key_E:
+        elif event.key() == Qt.Key.Key_E:
             self.button = 'e'
-        if event.key() == Qt.Key.Key_R:
+        elif event.key() == Qt.Key.Key_R:
             self.button = 'r'
-        if event.key() == Qt.Key.Key_T:
+        elif event.key() == Qt.Key.Key_T:
             self.button = 't'
-        self.play_sound(self.button)
+        if self.button:
+            self.play_sound(self.button)
 
     def play_sound(self, button):
-        print(button)
-        media = QtCore.QUrl.fromLocalFile(dict_filename[button])
-        self._audio_output = QtMultimedia.QAudioOutput()
-        self._player = QtMultimedia.QMediaPlayer()
-        self._player.setAudioOutput(self._audio_output)
+        filename = dict_filename[button]
+        self._audio_output = QtMultimedia.QAudioOutput(self)
         self._audio_output.setVolume(50)
-        self._player.setSource(media)
+        self._player = QtMultimedia.QMediaPlayer(self)
+        self._player.setAudioOutput(self._audio_output)
+        self._player.setSource(QtCore.QUrl.fromLocalFile(filename))
         self._player.play()
 
 
